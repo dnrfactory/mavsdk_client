@@ -8,7 +8,7 @@ Rectangle {
     height: 200
     color: 'lightgray'
 
-    property real itemHeight: (root.height  - column.padding * 2 - column.spacing * 6) / 7
+    property real itemHeight: (root.height  - column.padding * 2 - column.spacing * 6) / 8
     property real keyItemWidth: 80
     property real valueItemWidth: root.width  - column.padding * 2 - keyItemWidth
     property var drone
