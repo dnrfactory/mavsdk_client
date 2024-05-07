@@ -11,6 +11,7 @@ Row {
     property alias inputText: inputTextField.text
     property alias placeholderText: inputTextField.placeholderText
     property alias wKey: rectKey.width
+    property alias wInput: inputTextField.width
     property alias textKey: rectKeyText.text
 
     Rectangle {

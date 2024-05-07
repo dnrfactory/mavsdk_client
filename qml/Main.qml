@@ -6,7 +6,7 @@ ApplicationWindow {
     id: root
     visible: true
     width: 1160
-    height: 480
+    height: 960
     title: "mavsdk_client"
 
     property string ip: "172.17.0.2"
@@ -92,6 +92,15 @@ ApplicationWindow {
             DroneStatusWidget {
                 drone: drone0
             }
+            DroneControlWidget {
+                onBtnArmClicked: mainController.arm(0)
+                onBtnStartOffboardClicked: mainController.startOffboardMode(0)
+                onBtnStopOffboardClicked: mainController.stopOffboardMode(0)
+                onBtnVelocityBodySetClicked: mainController.setVelocityBody(0, val1, val2, val3, val4)
+                onBtnVelocityNedSetClicked: mainController.setVelocityNED(0, val1, val2, val3, val4)
+                onBtnAttitudeSetClicked: mainController.setAttitude(0, val1, val2, val3, val4)
+                onBtnPositionNedSetClicked: mainController.setPositionNED(0, val1, val2, val3, val4)
+            }
             SwarmWidget {
                 id: swarmWidget0
                 onIsLeaderOnChanged: {
@@ -127,6 +136,15 @@ ApplicationWindow {
             }
             DroneStatusWidget {
                 drone: drone1
+            }
+            DroneControlWidget {
+                onBtnArmClicked: mainController.arm(1)
+                onBtnStartOffboardClicked: mainController.startOffboardMode(1)
+                onBtnStopOffboardClicked: mainController.stopOffboardMode(1)
+                onBtnVelocityBodySetClicked: mainController.setVelocityBody(1, val1, val2, val3, val4)
+                onBtnVelocityNedSetClicked: mainController.setVelocityNED(1, val1, val2, val3, val4)
+                onBtnAttitudeSetClicked: mainController.setAttitude(1, val1, val2, val3, val4)
+                onBtnPositionNedSetClicked: mainController.setPositionNED(1, val1, val2, val3, val4)
             }
             SwarmWidget {
                 id: swarmWidget1
@@ -164,6 +182,15 @@ ApplicationWindow {
             DroneStatusWidget {
                 drone: drone2
             }
+            DroneControlWidget {
+                onBtnArmClicked: mainController.arm(2)
+                onBtnStartOffboardClicked: mainController.startOffboardMode(2)
+                onBtnStopOffboardClicked: mainController.stopOffboardMode(2)
+                onBtnVelocityBodySetClicked: mainController.setVelocityBody(2, val1, val2, val3, val4)
+                onBtnVelocityNedSetClicked: mainController.setVelocityNED(2, val1, val2, val3, val4)
+                onBtnAttitudeSetClicked: mainController.setAttitude(2, val1, val2, val3, val4)
+                onBtnPositionNedSetClicked: mainController.setPositionNED(2, val1, val2, val3, val4)
+            }
             SwarmWidget {
                 id: swarmWidget2
                 onIsLeaderOnChanged: {
@@ -200,6 +227,15 @@ ApplicationWindow {
             DroneStatusWidget {
                 drone: drone3
             }
+            DroneControlWidget {
+                onBtnArmClicked: mainController.arm(3)
+                onBtnStartOffboardClicked: mainController.startOffboardMode(3)
+                onBtnStopOffboardClicked: mainController.stopOffboardMode(3)
+                onBtnVelocityBodySetClicked: mainController.setVelocityBody(3, val1, val2, val3, val4)
+                onBtnVelocityNedSetClicked: mainController.setVelocityNED(3, val1, val2, val3, val4)
+                onBtnAttitudeSetClicked: mainController.setAttitude(3, val1, val2, val3, val4)
+                onBtnPositionNedSetClicked: mainController.setPositionNED(3, val1, val2, val3, val4)
+            }
             SwarmWidget {
                 id: swarmWidget3
                 onIsLeaderOnChanged: {
@@ -223,7 +259,8 @@ ApplicationWindow {
         }
     }
 
-    Column {
+    Row {
+        anchors.topMargin: 8
         anchors.top: dronesRow.bottom
         spacing: 2
 

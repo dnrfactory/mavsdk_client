@@ -52,3 +52,35 @@ class MainController(QObject):
     @pyqtSlot()
     def stopFollow(self):
         SocketClient.getInstance().send_message("stopFollow", ())
+
+    @pyqtSlot(int)
+    def arm(self, index):
+        SocketClient.getInstance().send_message("arm", (index,))
+
+    @pyqtSlot(int)
+    def startOffboardMode(self, index):
+        SocketClient.getInstance().send_message("startOffboardMode", (index,))
+
+    @pyqtSlot(int)
+    def stopOffboardMode(self, index):
+        SocketClient.getInstance().send_message("stopOffboardMode", (index,))
+
+    @pyqtSlot(int, float, float, float, float)
+    def setVelocityBody(self, index, forward, right, down, yaw):
+        logger.debug('')
+        SocketClient.getInstance().send_message("setVelocityBody", (index, forward, right, down, yaw))
+
+    @pyqtSlot(int, float, float, float, float)
+    def setVelocityNED(self, index, north, east, down, yaw):
+        logger.debug('')
+        SocketClient.getInstance().send_message("setVelocityNED", (index, north, east, down, yaw))
+
+    @pyqtSlot(int, float, float, float, float)
+    def setAttitude(self, index, roll, pitch, yaw, thrust):
+        logger.debug('')
+        SocketClient.getInstance().send_message("setAttitude", (index, roll, pitch, yaw, thrust))
+
+    @pyqtSlot(int, float, float, float, float)
+    def setPositionNED(self, index, north, east, down, yaw):
+        logger.debug('')
+        SocketClient.getInstance().send_message("setPositionNED", (index, north, east, down, yaw))
