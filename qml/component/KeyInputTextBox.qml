@@ -14,6 +14,8 @@ Row {
     property alias wInput: inputTextField.width
     property alias textKey: rectKeyText.text
 
+    signal inputReturnPressed()
+
     Rectangle {
         id: rectKey
         height: parent.height
@@ -35,6 +37,10 @@ Row {
                 border.color: 'black'
                 border.width: 1
             }
+        }
+        Keys.onReturnPressed: {
+            console.log("onReturnPressed")
+            inputReturnPressed()
         }
     }
 }

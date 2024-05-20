@@ -259,45 +259,58 @@ ApplicationWindow {
         }
     }
 
-    Row {
+    Column {
         anchors.topMargin: 8
         anchors.top: dronesRow.bottom
         spacing: 2
 
-        TextButton {
-            id: offboardBtn
-            width: 80
-            height: 30
-            text:  'offboard'
-            textSize: 14
-            normalColor: 'lavender'
-            radius: 4
-            onBtnClicked: {
-                mainController.readyToFollow()
+        Row {
+            spacing: 2
+
+            TextButton {
+                id: offboardBtn
+                width: 80
+                height: 30
+                text:  'offboard'
+                textSize: 14
+                normalColor: 'lavender'
+                radius: 4
+                onBtnClicked: {
+                    mainController.readyToFollow()
+                }
+            }
+            TextButton {
+                id: followBtn
+                width: 80
+                height: 30
+                text:  'follow'
+                textSize: 14
+                normalColor: 'lavender'
+                radius: 4
+                onBtnClicked: {
+                    mainController.followLeader()
+                }
+            }
+            TextButton {
+                id: stopBtn
+                width: 80
+                height: 30
+                text:  'stop'
+                textSize: 14
+                normalColor: 'lavender'
+                radius: 4
+                onBtnClicked: {
+                    mainController.stopFollow()
+                }
             }
         }
-        TextButton {
-            id: followBtn
-            width: 80
-            height: 30
-            text:  'follow'
-            textSize: 14
-            normalColor: 'lavender'
-            radius: 4
-            onBtnClicked: {
-                mainController.followLeader()
-            }
-        }
-        TextButton {
-            id: stopBtn
-            width: 80
-            height: 30
-            text:  'stop'
-            textSize: 14
-            normalColor: 'lavender'
-            radius: 4
-            onBtnClicked: {
-                mainController.stopFollow()
+        KeyInputTextBox {
+            wKey: 80
+            wInput: 120
+            textKey: "Frequency"
+            inputText: "1.0"
+            onInputReturnPressed: {
+                mainController.setFollowFrequency(parseFloat(inputText))
             }
         }
     }

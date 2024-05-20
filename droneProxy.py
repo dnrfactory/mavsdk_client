@@ -114,9 +114,6 @@ class DroneProxy(QObject):
         self._heading = val
         self.headingChanged.emit(val)
 
-    def telemetry(self):
-        return self._drone.telemetry
-
     def connect(self, index: int, ip: str, port: str):
         if index == self._index:
             self._socket.send_message("connect", (self._index, ip, port))

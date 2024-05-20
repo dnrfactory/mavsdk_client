@@ -15,7 +15,7 @@ class SocketClient(QObject):
         super().__init__(parent)
 
         self.socket = QTcpSocket(self)
-        self.socket.connected.connect(self.connected)
+        self.socket.connected.connect(self._on_connected)
         self.socket.readyRead.connect(self.receive_message)
         self.socket.error.connect(self.display_error)
         self.socket.connectToHost(QHostAddress.LocalHost, 12345)
@@ -33,7 +33,7 @@ class SocketClient(QObject):
             cls.instance = SocketClient()
         return cls.instance
 
-    def connected(self):
+    def _on_connected(self):
         logger.debug("Connected to server")
 
     @staticmethod
@@ -79,7 +79,6 @@ class SocketClient(QObject):
         logger.debug(f"Socket error: {socket_error}")
 
     def send_message(self, func: str, args: tuple):
-        data = {"func": "connect", "args": (0, "172.17.0.2", "14581")}
         data = {"func": func, "args": args}
         message = json.dumps(data)
         self.socket.write(message.encode())

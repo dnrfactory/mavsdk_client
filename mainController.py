@@ -21,6 +21,7 @@ class MainController(QObject):
             i += 1
 
     def cleanup(self):
+        SocketClient.getInstance().send_message("closeServer", ())
         pass
 
     @pyqtSlot(int, str, str)
@@ -84,3 +85,8 @@ class MainController(QObject):
     def setPositionNED(self, index, north, east, down, yaw):
         logger.debug('')
         SocketClient.getInstance().send_message("setPositionNED", (index, north, east, down, yaw))
+
+    @pyqtSlot(float)
+    def setFollowFrequency(self, frequency):
+        logger.debug(f'frequency: {frequency}')
+        SocketClient.getInstance().send_message("setFollowFrequency", (frequency,))
