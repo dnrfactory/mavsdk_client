@@ -6,6 +6,10 @@ logger = logging.getLogger()
 
 
 class DroneProxy(QObject):
+    addressIpChanged = pyqtSignal(str)
+    addressPortChanged = pyqtSignal(str)
+    followDistanceChanged = pyqtSignal(str)
+    followAngleChanged = pyqtSignal(str)
     statusTextChanged = pyqtSignal(str)
     isConnectedChanged = pyqtSignal(bool)
     isArmedChanged = pyqtSignal(bool)
@@ -20,6 +24,11 @@ class DroneProxy(QObject):
         self._drone = None
         self._port = port
         self._index = index
+
+        self._address_ip = ''
+        self._address_port = ''
+        self._follow_distance = ''
+        self._follow_angle = ''
 
         self._statusText = ''
         self._isConnected = False
@@ -45,6 +54,42 @@ class DroneProxy(QObject):
     @pyqtProperty(str, notify=statusTextChanged)
     def statusText(self):
         return self._statusText
+
+    @pyqtProperty(str, notify=addressIpChanged)
+    def address_ip(self):
+        return self._address_ip
+
+    @address_ip.setter
+    def address_ip(self, val: str):
+        self._address_ip = val
+        self.addressIpChanged.emit(val)
+
+    @pyqtProperty(str, notify=addressPortChanged)
+    def address_port(self):
+        return self._address_port
+
+    @address_port.setter
+    def address_port(self, val: str):
+        self._address_port = val
+        self.addressPortChanged.emit(val)
+
+    @pyqtProperty(str, notify=followDistanceChanged)
+    def follow_distance(self):
+        return self._follow_distance
+
+    @follow_distance.setter
+    def follow_distance(self, val: str):
+        self._follow_distance = val
+        self.followDistanceChanged.emit(val)
+
+    @pyqtProperty(str, notify=followAngleChanged)
+    def follow_angle(self):
+        return self._follow_angle
+
+    @follow_angle.setter
+    def follow_angle(self, val: str):
+        self._follow_angle = val
+        self.followAngleChanged.emit(val)
 
     @statusText.setter
     def statusText(self, val: str):

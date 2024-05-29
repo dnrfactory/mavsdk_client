@@ -2,6 +2,7 @@ from PyQt5.QtCore import QObject, pyqtSlot, pyqtProperty, pyqtSignal, QVariant
 import logging
 from droneProxy import DroneProxy
 from socketClient import SocketClient
+from appSetting import AppSetting
 
 logger = logging.getLogger()
 
@@ -12,17 +13,30 @@ class MainController(QObject):
         self._qmlContext = qmlContext
         self._qmlContext.setContextProperty('mainController', self)
 
+        self._appSetting = AppSetting()
+
         self._drones = [DroneProxy(), DroneProxy(port="50052", index=1), DroneProxy(port="50053", index=2),
                         DroneProxy(port="50054", index=3)]
 
         i = 0
         for drone in self._drones:
             self._qmlContext.setContextProperty(f'drone{i}', drone)
+            address_ip_port = self._appSetting.getIpPort(i)
+            follow_distance_angle = self._appSetting.getDistanceAngle(i)
+            drone.address_ip = address_ip_port[0]
+            drone.address_port = address_ip_port[1]
+            drone.follow_distance = follow_distance_angle[0]
+            drone.follow_angle = follow_distance_angle[1]
             i += 1
 
     def cleanup(self):
         SocketClient.getInstance().send_message("closeServer", ())
-        pass
+
+        i = 0
+        for drone in self._drones:
+            self._appSetting.setIpPort(i, drone.address_ip, drone.address_port)
+            self._appSetting.setDistanceAngle(i, drone.follow_distance, drone.follow_angle)
+            i += 1
 
     @pyqtSlot(int, str, str)
     def connect(self, index, ip, port):

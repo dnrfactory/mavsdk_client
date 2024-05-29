@@ -9,8 +9,6 @@ ApplicationWindow {
     height: 960
     title: "mavsdk_client"
 
-    property string ip: "172.17.0.2"
-
     property real leaderDroneIndex: -1
 
     onLeaderDroneIndexChanged: {
@@ -82,11 +80,17 @@ ApplicationWindow {
 
             ConnectionWidget {
                 id: connectionWidget0
-                ipInputText: root.ip
-                portInputText: "14581"
+                ipInputText: drone0.address_ip
+                portInputText: drone0.address_port
 
                 onConnectButtonClicked: {
                     mainController.connect(0, ipInputText, portInputText)
+                }
+                onIpInputTextChanged: {
+                    drone0.address_ip = ipInputText
+                }
+                onPortInputTextChanged: {
+                    drone0.address_port = portInputText
                 }
             }
             DroneStatusWidget {
@@ -103,6 +107,8 @@ ApplicationWindow {
             }
             SwarmWidget {
                 id: swarmWidget0
+                distance: drone0.follow_distance
+                angle: drone0.follow_angle
                 onIsLeaderOnChanged: {
                     console.log('onIsLeaderOnChanged 0 ' + isLeaderOn)
                     if (isLeaderOn) {
@@ -120,6 +126,12 @@ ApplicationWindow {
                         mainController.removeFollowerDrone(0)
                     }
                 }
+                onDistanceChanged: {
+                    drone0.follow_distance = distance
+                }
+                onAngleChanged: {
+                    drone0.follow_angle = angle
+                }
             }
         }
         Column {
@@ -127,11 +139,17 @@ ApplicationWindow {
 
             ConnectionWidget {
                 id: connectionWidget1
-                ipInputText: root.ip
-                portInputText: "14582"
+                ipInputText: drone1.address_ip
+                portInputText: drone1.address_port
 
                 onConnectButtonClicked: {
                     mainController.connect(1, ipInputText, portInputText)
+                }
+                onIpInputTextChanged: {
+                    drone1.address_ip = ipInputText
+                }
+                onPortInputTextChanged: {
+                    drone1.address_port = portInputText
                 }
             }
             DroneStatusWidget {
@@ -148,6 +166,8 @@ ApplicationWindow {
             }
             SwarmWidget {
                 id: swarmWidget1
+                distance: drone1.follow_distance
+                angle: drone1.follow_angle
                 onIsLeaderOnChanged: {
                     console.log('onIsLeaderOnChanged 1 ' + isLeaderOn)
                     if (isLeaderOn) {
@@ -165,6 +185,12 @@ ApplicationWindow {
                         mainController.removeFollowerDrone(1)
                     }
                 }
+                onDistanceChanged: {
+                    drone1.follow_distance = distance
+                }
+                onAngleChanged: {
+                    drone1.follow_angle = angle
+                }
             }
         }
         Column {
@@ -172,11 +198,17 @@ ApplicationWindow {
 
             ConnectionWidget {
                 id: connectionWidget2
-                ipInputText: root.ip
-                portInputText: "14583"
+                ipInputText: drone2.address_ip
+                portInputText: drone2.address_port
 
                 onConnectButtonClicked: {
                     mainController.connect(2, ipInputText, portInputText)
+                }
+                onIpInputTextChanged: {
+                    drone2.address_ip = ipInputText
+                }
+                onPortInputTextChanged: {
+                    drone2.address_port = portInputText
                 }
             }
             DroneStatusWidget {
@@ -193,6 +225,8 @@ ApplicationWindow {
             }
             SwarmWidget {
                 id: swarmWidget2
+                distance: drone2.follow_distance
+                angle: drone2.follow_angle
                 onIsLeaderOnChanged: {
                     console.log('onIsLeaderOnChanged 2 ' + isLeaderOn)
                     if (isLeaderOn) {
@@ -210,6 +244,12 @@ ApplicationWindow {
                         mainController.removeFollowerDrone(2)
                     }
                 }
+                onDistanceChanged: {
+                    drone2.follow_distance = distance
+                }
+                onAngleChanged: {
+                    drone2.follow_angle = angle
+                }
             }
         }
         Column {
@@ -217,11 +257,17 @@ ApplicationWindow {
 
             ConnectionWidget {
                 id: connectionWidget3
-                ipInputText: root.ip
-                portInputText: "14584"
+                ipInputText: drone3.address_ip
+                portInputText: drone3.address_port
 
                 onConnectButtonClicked: {
                     mainController.connect(3, ipInputText, portInputText)
+                }
+                onIpInputTextChanged: {
+                    drone3.address_ip = ipInputText
+                }
+                onPortInputTextChanged: {
+                    drone3.address_port = portInputText
                 }
             }
             DroneStatusWidget {
@@ -238,6 +284,8 @@ ApplicationWindow {
             }
             SwarmWidget {
                 id: swarmWidget3
+                distance: drone3.follow_distance
+                angle: drone3.follow_angle
                 onIsLeaderOnChanged: {
                     if (isLeaderOn) {
                         console.log('onIsLeaderOnChanged 3 ' + isLeaderOn)
@@ -254,6 +302,12 @@ ApplicationWindow {
                     } else {
                         mainController.removeFollowerDrone(3)
                     }
+                }
+                onDistanceChanged: {
+                    drone3.follow_distance = distance
+                }
+                onAngleChanged: {
+                    drone3.follow_angle = angle
                 }
             }
         }
