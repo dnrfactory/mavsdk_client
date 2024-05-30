@@ -4,6 +4,7 @@ from PyQt5.QtQuick import QQuickView
 from PyQt5.QtQml import QQmlApplicationEngine
 
 import sys
+import os
 import logging
 
 import mainController
@@ -37,6 +38,17 @@ def _handleQmlWarnings(warnings):
         print("QML Warning:", warning.toString())
 
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
 if __name__ == "__main__":
     rootLogger = logging.getLogger()
     rootLogger.setLevel(logging.DEBUG)
@@ -54,7 +66,7 @@ if __name__ == "__main__":
 
     mainController = mainController.MainController(engine.rootContext(), app)
 
-    engine.load(QUrl.fromLocalFile("qml/Main.qml"))
+    engine.load(QUrl.fromLocalFile(resource_path("qml/Main.qml")))
 
     if not engine.rootObjects():
         sys.exit(-1)
