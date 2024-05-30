@@ -80,9 +80,6 @@ ApplicationWindow {
 
             ConnectionWidget {
                 id: connectionWidget0
-                ipInputText: drone0.address_ip
-                portInputText: drone0.address_port
-
                 onConnectButtonClicked: {
                     mainController.connect(0, ipInputText, portInputText)
                 }
@@ -91,6 +88,10 @@ ApplicationWindow {
                 }
                 onPortInputTextChanged: {
                     drone0.address_port = portInputText
+                }
+                Component.onCompleted: {
+                    ipInputText = drone0.address_ip
+                    portInputText = drone0.address_port
                 }
             }
             DroneStatusWidget {
@@ -107,8 +108,6 @@ ApplicationWindow {
             }
             SwarmWidget {
                 id: swarmWidget0
-                distance: drone0.follow_distance
-                angle: drone0.follow_angle
                 onIsLeaderOnChanged: {
                     console.log('onIsLeaderOnChanged 0 ' + isLeaderOn)
                     if (isLeaderOn) {
@@ -132,6 +131,10 @@ ApplicationWindow {
                 onAngleChanged: {
                     drone0.follow_angle = angle
                 }
+                Component.onCompleted: {
+                    distance = drone0.follow_distance
+                    angle = drone0.follow_angle
+                }
             }
         }
         Column {
@@ -139,9 +142,6 @@ ApplicationWindow {
 
             ConnectionWidget {
                 id: connectionWidget1
-                ipInputText: drone1.address_ip
-                portInputText: drone1.address_port
-
                 onConnectButtonClicked: {
                     mainController.connect(1, ipInputText, portInputText)
                 }
@@ -150,6 +150,10 @@ ApplicationWindow {
                 }
                 onPortInputTextChanged: {
                     drone1.address_port = portInputText
+                }
+                Component.onCompleted: {
+                    ipInputText = drone1.address_ip
+                    portInputText = drone1.address_port
                 }
             }
             DroneStatusWidget {
@@ -166,8 +170,6 @@ ApplicationWindow {
             }
             SwarmWidget {
                 id: swarmWidget1
-                distance: drone1.follow_distance
-                angle: drone1.follow_angle
                 onIsLeaderOnChanged: {
                     console.log('onIsLeaderOnChanged 1 ' + isLeaderOn)
                     if (isLeaderOn) {
@@ -191,6 +193,10 @@ ApplicationWindow {
                 onAngleChanged: {
                     drone1.follow_angle = angle
                 }
+                Component.onCompleted: {
+                    distance = drone1.follow_distance
+                    angle = drone1.follow_angle
+                }
             }
         }
         Column {
@@ -198,9 +204,6 @@ ApplicationWindow {
 
             ConnectionWidget {
                 id: connectionWidget2
-                ipInputText: drone2.address_ip
-                portInputText: drone2.address_port
-
                 onConnectButtonClicked: {
                     mainController.connect(2, ipInputText, portInputText)
                 }
@@ -209,6 +212,10 @@ ApplicationWindow {
                 }
                 onPortInputTextChanged: {
                     drone2.address_port = portInputText
+                }
+                Component.onCompleted: {
+                    ipInputText = drone2.address_ip
+                    portInputText = drone2.address_port
                 }
             }
             DroneStatusWidget {
@@ -225,8 +232,6 @@ ApplicationWindow {
             }
             SwarmWidget {
                 id: swarmWidget2
-                distance: drone2.follow_distance
-                angle: drone2.follow_angle
                 onIsLeaderOnChanged: {
                     console.log('onIsLeaderOnChanged 2 ' + isLeaderOn)
                     if (isLeaderOn) {
@@ -250,6 +255,10 @@ ApplicationWindow {
                 onAngleChanged: {
                     drone2.follow_angle = angle
                 }
+                Component.onCompleted: {
+                    distance = drone2.follow_distance
+                    angle = drone2.follow_angle
+                }
             }
         }
         Column {
@@ -257,9 +266,6 @@ ApplicationWindow {
 
             ConnectionWidget {
                 id: connectionWidget3
-                ipInputText: drone3.address_ip
-                portInputText: drone3.address_port
-
                 onConnectButtonClicked: {
                     mainController.connect(3, ipInputText, portInputText)
                 }
@@ -268,6 +274,10 @@ ApplicationWindow {
                 }
                 onPortInputTextChanged: {
                     drone3.address_port = portInputText
+                }
+                Component.onCompleted: {
+                    ipInputText = drone3.address_ip
+                    portInputText = drone3.address_port
                 }
             }
             DroneStatusWidget {
@@ -284,8 +294,6 @@ ApplicationWindow {
             }
             SwarmWidget {
                 id: swarmWidget3
-                distance: drone3.follow_distance
-                angle: drone3.follow_angle
                 onIsLeaderOnChanged: {
                     if (isLeaderOn) {
                         console.log('onIsLeaderOnChanged 3 ' + isLeaderOn)
@@ -308,6 +316,10 @@ ApplicationWindow {
                 }
                 onAngleChanged: {
                     drone3.follow_angle = angle
+                }
+                Component.onCompleted: {
+                    distance = drone3.follow_distance
+                    angle = drone3.follow_angle
                 }
             }
         }
@@ -362,9 +374,12 @@ ApplicationWindow {
             wKey: 80
             wInput: 120
             textKey: "Frequency"
-            inputText: "1.0"
             onInputReturnPressed: {
+                mainController.followFrequency = inputText
                 mainController.setFollowFrequency(parseFloat(inputText))
+            }
+            Component.onCompleted: {
+                inputText = mainController.followFrequency
             }
         }
     }
