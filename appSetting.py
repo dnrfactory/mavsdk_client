@@ -25,6 +25,7 @@ class AppSetting:
             self._config.set('follow', 'angle2', '180')
             self._config.set('follow', 'angle3', '180')
             self._config.set('follow', 'angle4', '180')
+            self._config.set('follow', 'frequency', '1')
             with open(self._ini_file_path, 'w') as configFile:
                 self._config.write(configFile)
         else:
@@ -40,6 +41,8 @@ class AppSetting:
                                 (self._config.get('follow', 'distance3'), self._config.get('follow', 'angle3')),
                                 (self._config.get('follow', 'distance4'), self._config.get('follow', 'angle4'))]
 
+        self._frequency = self._config.get('follow', 'frequency')
+
     def getIpPort(self, index):
         return self._ip_port[index]
 
@@ -53,6 +56,12 @@ class AppSetting:
     def setDistanceAngle(self, index, distance: str, angle: str):
         self.write('follow', f'distance{index+1}', distance)
         self.write('follow', f'angle{index+1}', angle)
+
+    def getFrequency(self):
+        return self._frequency
+
+    def setFrequency(self, freq):
+        self.write('follow', 'frequency', freq)
 
     def read(self, section, key):
         val = None

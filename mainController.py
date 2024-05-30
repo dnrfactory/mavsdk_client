@@ -8,6 +8,8 @@ logger = logging.getLogger()
 
 
 class MainController(QObject):
+    followFrequencyChanged = pyqtSignal(str)
+
     def __init__(self, qmlContext, parent=None):
         super().__init__(parent)
         self._qmlContext = qmlContext
@@ -29,6 +31,8 @@ class MainController(QObject):
             drone.follow_angle = follow_distance_angle[1]
             i += 1
 
+        self._followFrequency = self._appSetting.getFrequency()
+
     def cleanup(self):
         SocketClient.getInstance().send_message("closeServer", ())
 
@@ -37,6 +41,17 @@ class MainController(QObject):
             self._appSetting.setIpPort(i, drone.address_ip, drone.address_port)
             self._appSetting.setDistanceAngle(i, drone.follow_distance, drone.follow_angle)
             i += 1
+
+        self._appSetting.setFrequency(self._followFrequency)
+
+    @pyqtProperty(str, notify=followFrequencyChanged)
+    def followFrequency(self):
+        return self._followFrequency
+
+    @followFrequency.setter
+    def followFrequency(self, val: str):
+        self._followFrequency = val
+        self.followFrequencyChanged.emit(val)
 
     @pyqtSlot(int, str, str)
     def connect(self, index, ip, port):
@@ -62,7 +77,7 @@ class MainController(QObject):
 
     @pyqtSlot()
     def followLeader(self):
-        SocketClient.getInstance().send_message("followLeader", ())
+        SocketClient.getInstance().send_message("followLeader", (float(self.followFrequency),))
 
     @pyqtSlot()
     def stopFollow(self):
